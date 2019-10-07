@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuariosModel } from './components/usuarios.model';
 import { map } from 'rxjs/operators';
 import * as _ from 'underscore';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,22 @@ export class ServiciosService {
   sesion: string;
   datos = [];
   detail = [];
+
   constructor( private http: HttpClient ) {
     this.leerSesion('id');
+  }
+
+  loginInitial( mail: string, pass: string ) {
+    return this.http.get(`${ this.url }/users?email=${mail}&password=${pass}`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        }).pipe(
+      map( (resp: UsuariosModel) => {
+        this.guardarSession( resp[0].id, resp[0].email, resp[0].firstname, resp[0].lastname );
+        return resp;
+      })
+    );
   }
 
   logout() {
@@ -22,13 +37,21 @@ export class ServiciosService {
   }
 
   lista() {
-    return this.http.get(`${ this.url }/posts`).pipe(
+    return this.http.get(`${ this.url }/posts`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        }).pipe(
       map( (resp: UsuariosModel) => this.arreglo(resp) )
     );
   }
 
   comments( id: number) {
-    return this.http.get(`${ this.url }/comments?postId=${id}`).pipe(
+    return this.http.get(`${ this.url }/comments?postId=${id}`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        }).pipe(
       map( (resp: UsuariosModel) => this.comentsDates(resp) )
     );
   }
@@ -47,7 +70,11 @@ export class ServiciosService {
 
   datosOneUser( id: number ) {
     this.datos = [];
-    return this.http.get(`${ this.url }/posts?id=${id}`).pipe(
+    return this.http.get(`${ this.url }/posts?id=${id}`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        }).pipe(
       map( (resp: UsuariosModel) => this.arreglo(resp) )
     );
   }
@@ -63,10 +90,10 @@ export class ServiciosService {
       dato.author = resp[key].author;
       this.listaUser(resp[key].author).subscribe(
         ( respUser: any ) => {
+          dato.email = respUser.email;
           dato.firstname = respUser.firstname;
           dato.lastname = respUser.lastname;
       }, (err) => {
-        console.log(`asdasdasd`);
       });
       this.datos.push(dato);
 
@@ -75,28 +102,46 @@ export class ServiciosService {
   }
 
   listaUser(id: number) {
-    return this.http.get(`${ this.url }/users?id=${id}`).pipe(
+    return this.http.get(`${ this.url }/users?id=${id}`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        }).pipe(
       map( (resp: UsuariosModel) => this.arregloUsers(resp) )
     );
   }
 
+  verificador( usuario: NgForm ) {
+    return this.http.get(`${ this.url }/users?email=${usuario.value.email}`, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+        });
+  }
+
+  registerUsers( form: NgForm ) {
+    return this.http.post(`${ this.url }/users`, form.value, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+    }).pipe(
+      map( (resp: UsuariosModel) => {
+        this.guardarSession( resp.id, resp.email, resp.firstname, resp.lastname );
+        return resp;
+      } )
+    );
+  }
+
   private arregloUsers(resp: object) {
-      const dato = resp[0];
+      const dato: any = [];
+      dato.id = resp[0].id;
       dato.firstname = resp[0].firstname;
       dato.lastname = resp[0].lastname;
+      dato.email = resp[0].email;
       return dato;
   }
 
-  login( usuario: UsuariosModel ){
-    return this.http.get(`${ this.url }/users?email=${usuario.email}`).pipe(
-        map( (resp: UsuariosModel) => {
-          this.guardarSession( resp[0].id, resp[0].email, resp[0].firstname, resp[0].lastname );
-          return resp;
-        })
-      );
-  }
-
-  private guardarSession( idUser: number, mailUser: string, fistNameUser: string, lastNameUser: string ){
+  private guardarSession( idUser: number, mailUser: string, fistNameUser: string, lastNameUser: string ) {
     localStorage.setItem('id', idUser.toString());
     localStorage.setItem('email', mailUser);
     localStorage.setItem('name', `${fistNameUser} ${lastNameUser}`);

@@ -1,23 +1,23 @@
 <div class="container">
     <div class="row">
         <div class="col-12 text-right mt-5">
-            <button class="btn btn-outline-secondary" [routerLink]="['/home']">Return</button>
+            <button class="btn btn-outline-light" [routerLink]="['/home']">Return</button>
         </div>
         <h2>Post</h2>
         <div class="card col-12 mb-5" *ngFor="let item of datos;" [routerLink]="['/detail', item.id]">
             <div class="card-body" style="margin: 15px 20px !important;">
-                <h5 class="card-title">{{item.title}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{item.firstname}} {{item.lastname}} <br><span>{{item.date}} {{item.country}}</span></h6>
+                <h5 class="card-title"><i class="far fa-comments"></i> {{item.title}} ( {{item.email}} )</h5>
                 <p class="card-text">{{item.description}}</p>
+                <p class="card-subtitle mb-2 text-right">{{item.firstname}} {{item.lastname}}<br>{{item.country}}<br>{{item.date}}</p>
             </div>
         </div>
         <h3>Comments</h3>
         <ul class="list-group col-12 mb-5">
             <li class="list-group-item" *ngFor="let item of datosComments;">
                 <div class="col-12">
-                    {{item.body}}
+                    <i class="fas fa-comment"></i> {{item.body}}
                 </div>
-                <div class="col-4 pull-right text-muted">{{item.date}}</div>
+                <div class="col-12 pull-right text-right">{{item.date}}</div>
             </li>
         </ul>
     </div>

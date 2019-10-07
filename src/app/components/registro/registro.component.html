@@ -1,0 +1,72 @@
+<form (ngSubmit)='register(dates)' #dates='ngForm'>
+    <div class="form-row align-items-center col-xs-12 col-sm-10 col-md-8 col-md-6 col-xl-4 text-center">
+        <div class="col-12">
+            <p class="title">Register</p>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupFirstname">Firstname</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-user-circle"></span></div>
+                </div>
+                <input name="firstname" [(ngModel)]="user.firstname" type="text" class="form-control" id="inlineFormInputGroupFirstname" placeholder="Firstname" required>
+            </div>
+            <label class="msgErr" *ngIf="dates.submitted && dates.controls['firstname'].errors">Required</label>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputLastname">Lastname</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-id-badge" aria-hidden="true"></i></div>
+                </div>
+                <input name="lastname" [(ngModel)]="user.lastname" type="text" class="form-control" id="inlineFormInputLastname" placeholder="Lastname" required>
+            </div>
+            <label class="msgErr" *ngIf="dates.submitted && dates.controls['lastname'].errors">Required</label>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupEmail">Email</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-envelope"></span></div>
+                </div>
+                <input name="email" [(ngModel)]="user.email" type="text" class="form-control" id="inlineFormInputGroupEmail" placeholder="Email" email required>
+            </div>
+            <label class="msgErr" *ngIf="dates.submitted && dates.controls['email'].errors">Email invalid</label>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupPassword">Password</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-lock"></span></div>
+                </div>
+                <input name="password" [(ngModel)]="user.password" type="{{seePass}}" class="form-control" id="inlineFormInputGroupPassword" placeholder="Password" required>
+                <div class="input-group-prepend">
+                    <div class="input-eye" (mouseover)="seePass='text'" (mouseleave)="seePass='password'"><span class="fa fa-eye"></span></div>
+                </div>
+            </div>
+            <label class="msgErr" *ngIf="dates.submitted && dates.controls['password'].errors">Required</label>
+        </div>
+        <!--<div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupConfirmPassword">Confirm Password</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-unlock-alt"></span></div>
+                </div>
+                <input name="passConf" [(ngModel)]="passConf" type="{{seePassConf}}" class="form-control" id="inlineFormInputGroupConfirmPassword" placeholder="Confirm Password" required>
+                <div class="input-group-prepend">
+                    <div class="input-eye" (mouseover)="seePassConf='text'" (mouseleave)="seePassConf='password'"><span class="fa fa-eye"></span></div>
+                </div>
+            </div>
+            <label class="msgErr" *ngIf="dates.submitted && dates.controls['passConf'].errors">Required</label>
+        </div>-->
+        <div class="col-12 part-input text-left">
+            <label class="msgErr" *ngIf="msgErr">{{ errComent }}</label>
+        </div>
+        <div class="col-12 text-right login-text title">
+            <a [routerLink]="'../login'">Log In</a>
+        </div>
+        <div class="col-12 text-center">
+            <button class="btn access">Sign in</button>
+        </div>
+    </div>
+</form>

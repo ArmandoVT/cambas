@@ -1,1 +1,152 @@
-/* You can add global styles to this file, and also import other style files */
+@white-col: #FFF;
+@general-background: #343a40;
+@blue-color: #0E4796;
+@blue-background: #5f7ccf40;
+@blue-hover:#5083CD;
+@blue-active: #4874B3;
+@background-post: #c19f9f36;
+
+body{
+    background: @general-background !important;
+    .logo-page{
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        top: 20px;
+        opacity: 0.2;
+    }
+}
+.form-row{
+    border: 1px solid @blue-color;
+    margin: 12% auto !important;
+    background: @white-col;
+    -webkit-box-shadow: 4px 6px 19px -5px rgba(255,255,255,1);
+    -moz-box-shadow: 4px 6px 19px -5px rgba(255,255,255,1);
+    box-shadow: 4px 6px 19px -5px rgba(255,255,255,1);
+    border-radius: 45px 45px 45px 45px;
+    -moz-border-radius: 45px 45px 45px 45px;
+    -webkit-border-radius: 45px 45px 45px 45px;
+
+    .title{
+        font-size: 30px;
+        color: @blue-color;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    .input-eye{
+        cursor: pointer;
+        font-size: 16px !important;
+        color: @blue-color !important;
+        background: @blue-background !important;
+        border: 1px solid @white-col;
+        width: 38px !important;
+        padding: 7px 10px !important;
+
+    }
+    .input-group-text{
+        padding: 0px 15px !important;
+        font-size: 20px;
+        width: 50px;
+        height: 40px;
+        color: @white-col;
+        background: @blue-color;
+    }
+    input{
+        height: 40px;
+        color: @white-col;
+        background: @blue-background;
+        border: 1px solid @white-col;
+        &::-webkit-input-placeholder {
+            color: @white-col;
+            font-weight: bold;
+        }
+        &:-moz-placeholder{
+            color: @white-col;
+            font-weight: bold;
+        }
+        &::-moz-placeholder{
+            color: @white-col;
+            font-weight: bold;
+        }
+    }
+    .part-input{
+        margin: 10px 0px;
+    }
+    .login-text{
+        font-size: 15px !important;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        a{
+            text-decoration: none;
+            color: @blue-color;
+            &:hover{
+                color: @blue-hover;
+            }
+            &:active{
+                color: @blue-active;
+            }
+        }
+    }
+    .access{
+        color: @white-col;
+        background: @blue-color;
+        margin-bottom: 30px;
+        &:hover{
+            color: @white-col;
+            background: @blue-hover;
+        }
+        &:active{
+            background: @blue-active;
+        }
+    }
+    .msgErr{
+        font-size: 12px;
+        color: #e64545;
+    }
+}
+
+.card{
+    border-left: 6px solid @white-col !important;
+    color: @white-col !important;
+    background-color: @background-post !important;
+    &:hover{
+        background-color: transparent !important;
+        cursor: pointer;
+    }
+    .card-subtitle{
+        font-size: 12px;
+    }
+}
+.page-link{
+    background: transparent !important;
+    color: @white-col !important;
+}
+
+.moreLess{
+    &:hover{
+        background-color: @background-post !important;
+        cursor: pointer;
+    }
+}
+
+.navbar{
+    background: transparent;
+    color: @white-col;
+}
+
+h2, h3{
+    color: @white-col;
+}
+
+.list-group{
+    .list-group-item{
+        border-bottom: 2px solid #6a6a6ad1 !important;
+        color: @white-col !important;
+        background-color: transparent !important;
+    }
+}
+
+.navbar-brand{
+    color: @white-col !important;
+    font-weight: bold;
+}

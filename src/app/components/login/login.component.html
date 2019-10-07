@@ -1,1 +1,39 @@
-<p>login works!</p>
+<form (ngSubmit)="verifyUser(f)" #f="ngForm">
+    <div class="form-row align-items-center col-xs-12 col-sm-10 col-md-8 col-md-6 col-xl-4 text-center">
+        <div class="col-12">
+            <p class="title">Login</p>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupEmail">Email</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                </div>
+                <input type="email" class="form-control" id="inlineFormInputGroupEmail" [(ngModel)]="user.email" name="email" placeholder="Email" email required>
+            </div>
+            <label class="msgErr" *ngIf="f.submitted && f.controls['email'].errors">Email invalid</label>
+        </div>
+        <div class="col-12 part-input text-left">
+            <label class="sr-only" for="inlineFormInputGroupPassword">Password</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-lock"></i></div>
+                </div>
+                <input type="{{seePass}}" class="form-control" id="inlineFormInputGroupPassword" [(ngModel)]="user.password" name="password" placeholder="Password" required>
+                <div class="input-group-prepend">
+                    <div class="input-eye" (mouseover)="seePass='text'" (mouseleave)="seePass='password'"><i class="fa fa-eye"></i></div>
+                </div>
+            </div>
+            <label class="msgErr" *ngIf="f.submitted && f.controls['password'].errors">Required</label>
+        </div>
+        <div class="col-12 text-left">
+            <label class="msgErr" *ngIf="msgErr">{{errComent}}</label>
+        </div>
+        <div class="col-12 text-right login-text title">
+            <a [routerLink]="'../registro'">Join now</a>
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn access">Log In</button>
+        </div>
+    </div>
+</form>

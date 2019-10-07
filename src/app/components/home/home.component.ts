@@ -10,7 +10,7 @@ import { UsuariosModel } from '../usuarios.model';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
-
+  filterPost = '';
   listaErr: boolean;
   datos: UsuariosModel;
   pagedItems: UsuariosModel[];
