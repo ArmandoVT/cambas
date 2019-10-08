@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   listaErr: boolean;
   datos: UsuariosModel;
   pagedItems: UsuariosModel[];
-  private allItems: UsuariosModel[];
+  allItems: UsuariosModel[];
   pager: any = {};
   sesion: string;
 
